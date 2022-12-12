@@ -6,14 +6,16 @@ TagManager:
   tags:
   - Fire
   - Loader
+  - PW - Prop
+  - PW - Nature
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
+  - Interactable
   - 
   - 
   - 
