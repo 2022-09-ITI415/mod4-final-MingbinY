@@ -5,4 +5,22 @@ using UnityEngine;
 public class Inventory : MonoBehaviour
 {
     public int componentCount;
+    public int totalComponent;
+
+    public int coinCount;
+    public int totalCoin;
+
+    public GameObject playerGun;
+
+    public bool SpendComponent(int count)
+    {
+        if (componentCount < count)
+            return false;
+        else
+        {
+            componentCount -= count;
+            return true;
+        }
+    }
+    
 }

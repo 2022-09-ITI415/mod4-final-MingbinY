@@ -13,9 +13,11 @@ public class RaycastInteractor : MonoBehaviour
     UnityEvent nullEvent;
     Camera mainCam;
     Transform raycastOrigin;
+    Interactable interactable;
 
     public LayerMask raycastLayer;
     public float raycastDistance = 1f;
+    public GameObject interactionHint;
 
     private void Awake()
     {
@@ -46,15 +48,18 @@ public class RaycastInteractor : MonoBehaviour
     {
         if (Physics.Raycast(raycastOrigin.position, raycastOrigin.forward, out hitInfo, raycastDistance, raycastLayer))
         {
-            Interactable interactable = hitInfo.collider.GetComponent<Interactable>();
+            interactable = hitInfo.collider.GetComponent<Interactable>();
             if (interactable != null)
             {
                 currentEvent = interactable.raycastEvent;
+                interactionHint.SetActive(true);
             }
         }
         else
         {
+            interactable = null;
             currentEvent = nullEvent;
+            interactionHint.SetActive(false);
         }
     }
 }
