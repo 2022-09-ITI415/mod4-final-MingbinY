@@ -28,6 +28,7 @@ public class StorageTerminal : MonoBehaviour
                 textsToHide.SetActive(false);
                 textsToShow.SetActive(true);
                 zombieSpawners.SetActive(true);
+                FindObjectOfType<TaskManager>().NextTask();
                 GetComponent<Interactable>().enabled = false;
             }
             else

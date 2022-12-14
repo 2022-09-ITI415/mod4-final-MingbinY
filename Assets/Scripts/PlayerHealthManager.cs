@@ -27,5 +27,6 @@ public class PlayerHealthManager : BasicHealthManager
     public override void Death()
     {
         GetComponent<FirstPersonController>().enabled = false;
+        FindObjectOfType<GameManager>().GameOver();
     }
 }
