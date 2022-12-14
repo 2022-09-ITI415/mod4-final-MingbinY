@@ -10,12 +10,31 @@ public enum BodyType
 
 public class BasicHealthManager : MonoBehaviour
 {
+    public bool isAlive;
     public int health = 0;
     public int maxHealth = 100;
     public BodyType bodyType = BodyType.Flesh;
 
-    private void Start()
-    {
+    public void Start()
+    {   
+        isAlive = true;
         health = maxHealth;
+    }
+
+    public virtual void TakeDamage(int damage)
+    {
+        if (!isAlive)
+            return;
+        health -= damage;
+        if (health < 0)
+        {
+            isAlive=false;
+            Death();
+        }
+    }
+
+    public virtual void Death()
+    {
+
     }
 }
