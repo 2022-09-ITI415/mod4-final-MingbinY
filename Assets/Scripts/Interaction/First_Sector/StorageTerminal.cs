@@ -11,6 +11,7 @@ public class StorageTerminal : MonoBehaviour
 
     public GameObject textsToHide;
     public GameObject textsToShow;
+    public GameObject zombieSpawners;
 
     private void Start()
     {
@@ -26,6 +27,7 @@ public class StorageTerminal : MonoBehaviour
                 doorController.Unlock();
                 textsToHide.SetActive(false);
                 textsToShow.SetActive(true);
+                zombieSpawners.SetActive(true);
                 GetComponent<Interactable>().enabled = false;
             }
             else

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RaycastGun : MonoBehaviour
 {
-    public float damage = 10f;
+    public int damage = 10;
     public float range = 100f;
     public float fireInterval = 0.1f;
     float nextShootTime;
@@ -46,9 +46,10 @@ public class RaycastGun : MonoBehaviour
             GameObject newTracer = Instantiate(tracerEffect, muzzle.transform.position, Quaternion.identity);
             newTracer.GetComponent<TrailRenderer>().AddPosition(newTracer.transform.position);
             newTracer.transform.position = hitInfo.point;
-            BasicHealthManager healthManager = hitInfo.collider.GetComponent<BasicHealthManager>();
+            ZombieHealthManager healthManager = hitInfo.collider.GetComponent<ZombieHealthManager>();
             if (healthManager != null)
             {
+                healthManager.TakeDamage(damage);
                 if (healthManager.bodyType == BodyType.Flesh)
                 {
                     fleshHitEffect.transform.position = hitInfo.point;
