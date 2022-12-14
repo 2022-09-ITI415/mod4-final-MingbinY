@@ -12,20 +12,20 @@ public class TaskManager : MonoBehaviour
     }
 
     public Text taskText;
-    public List<Task> tasks;
+    public List<string> tasks;
     int taskIndex;
 
     private void Start()
     {
         taskIndex = 0;
-        taskText.text = tasks[taskIndex].taskDescription;
+        taskText.text = tasks[taskIndex];
     }
 
     public void NextTask()
     {
         taskIndex++;
         Debug.Log(taskIndex);
-        taskText.text = tasks[taskIndex].taskDescription;
+        taskText.text = tasks[taskIndex];
     }
 
 }

@@ -11,7 +11,7 @@ public enum BodyType
 public class BasicHealthManager : MonoBehaviour
 {
     public bool isAlive;
-    public int health = 0;
+    public float health = 0;
     public int maxHealth = 100;
     public BodyType bodyType = BodyType.Flesh;
 

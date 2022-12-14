@@ -8,11 +8,18 @@ public class RaycastGun : MonoBehaviour
     public float range = 100f;
     public float fireInterval = 0.1f;
     float nextShootTime;
+    bool canFire;
+    bool reloading;
+    int fireCount;
+    public int shotPerMag = 30;
 
     public ParticleSystem[] muzzleFlashes;
+    public AudioClip fireSFX;
+    public AudioClip reloadSFX;
 
     RaycastHit hitInfo;
     Camera cam;
+    AudioSource audioSource;
 
     public ParticleSystem fleshHitEffect;
     public ParticleSystem otherHitEffect;
@@ -21,8 +28,11 @@ public class RaycastGun : MonoBehaviour
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         nextShootTime = Time.time;
         cam = Camera.main;
+        canFire = true;
+        reloading = false;
     }
 
     private void Update()
@@ -31,14 +41,24 @@ public class RaycastGun : MonoBehaviour
         {
             Shoot();
         }
+        if (Input.GetKey(KeyCode.R) && !reloading)
+        {
+            Reload();
+        }
     }
 
     void Shoot()
     {
+        if (fireCount >= shotPerMag && !reloading)
+            Reload();
+        if (!canFire)
+            return;
         if (Time.time < nextShootTime)
             return;
 
+        audioSource.PlayOneShot(fireSFX);
         nextShootTime = Time.time + fireInterval;
+        fireCount++;
         foreach (ParticleSystem muzzleFlash in muzzleFlashes)
             muzzleFlash.Emit(1);
         if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hitInfo, range))
@@ -77,5 +97,20 @@ public class RaycastGun : MonoBehaviour
             var end = cam.transform.position + cam.transform.forward * range;
             newTracer.transform.position = end;
         }
+    }
+
+    void Reload()
+    {
+        reloading = true;
+        canFire = false;
+        audioSource.PlayOneShot(reloadSFX);
+        Invoke("EndReload", reloadSFX.length);
+    }
+
+    void EndReload()
+    {
+        reloading = false;
+        fireCount = 0;
+        canFire = true;
     }
 }

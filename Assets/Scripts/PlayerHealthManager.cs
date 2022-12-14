@@ -8,13 +8,14 @@ public class PlayerHealthManager : BasicHealthManager
     public float regenInterval;
     public float regenTimer;
 
-    public int regenRate;
+    [Tooltip("Per second")]
+    public float regenRate;
 
     private void FixedUpdate()
     {
         if (Time.time >= regenTimer && health < maxHealth)
         {
-            health++;
+            health += (regenRate/60);
         }
     }
 
