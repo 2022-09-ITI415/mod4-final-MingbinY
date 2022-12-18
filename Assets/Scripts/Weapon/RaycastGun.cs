@@ -16,6 +16,7 @@ public class RaycastGun : MonoBehaviour
     public ParticleSystem[] muzzleFlashes;
     public AudioClip fireSFX;
     public AudioClip reloadSFX;
+    public LayerMask layer;
 
     RaycastHit hitInfo;
     Camera cam;
@@ -61,7 +62,7 @@ public class RaycastGun : MonoBehaviour
         fireCount++;
         foreach (ParticleSystem muzzleFlash in muzzleFlashes)
             muzzleFlash.Emit(1);
-        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hitInfo, range))
+        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hitInfo, range, layer))
         {
             GameObject newTracer = Instantiate(tracerEffect, muzzle.transform.position, Quaternion.identity);
             newTracer.GetComponent<TrailRenderer>().AddPosition(newTracer.transform.position);

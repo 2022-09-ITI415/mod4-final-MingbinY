@@ -11,6 +11,7 @@ public class TaskManager : MonoBehaviour
         public string taskDescription;
     }
 
+    PlayerVoiceOverManager voiceOverManager;
     public Text taskText;
     public List<string> tasks;
     int taskIndex;
@@ -19,6 +20,8 @@ public class TaskManager : MonoBehaviour
     {
         taskIndex = 0;
         taskText.text = tasks[taskIndex];
+        voiceOverManager = FindObjectOfType<PlayerVoiceOverManager>();
+        voiceOverManager.PlayClip();
     }
 
     public void NextTask()
@@ -26,6 +29,7 @@ public class TaskManager : MonoBehaviour
         taskIndex++;
         Debug.Log(taskIndex);
         taskText.text = tasks[taskIndex];
+        voiceOverManager.PlayClip();
     }
 
 }

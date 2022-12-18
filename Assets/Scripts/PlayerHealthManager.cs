@@ -7,9 +7,17 @@ public class PlayerHealthManager : BasicHealthManager
 {
     public float regenInterval;
     public float regenTimer;
+    public AudioClip[] hurtSFX;
+    public AudioSource audioSource;
 
     [Tooltip("Per second")]
     public float regenRate;
+
+    private void Awake()
+    {
+        if (!audioSource)
+            audioSource = GetComponent<AudioSource>();
+    }
 
     private void FixedUpdate()
     {
@@ -23,6 +31,7 @@ public class PlayerHealthManager : BasicHealthManager
     {
         base.TakeDamage(damage);
         regenTimer = Time.time + regenInterval;
+        audioSource.PlayOneShot(hurtSFX[Random.Range(0, hurtSFX.Length)]);
     }
 
     public override void Death()

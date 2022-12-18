@@ -34,7 +34,7 @@ public class ShipTable : MonoBehaviour
     {
         if (inventory != null)
         {
-            if (inventory.SpendComponent(1))
+            if (inventory.SpendComponent(10))
             {
                 StartCoroutine(SurvivalPhase());
                 GetComponent<Interactable>().enabled = false;

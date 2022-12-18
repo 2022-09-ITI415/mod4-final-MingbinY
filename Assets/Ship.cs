@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityStandardAssets.Characters.FirstPerson;
 
 public class Ship : MonoBehaviour
 {
     public bool shipFixed = false;
+    public GameObject[] UIs;
 
     private void Awake()
     {
@@ -16,7 +16,14 @@ public class Ship : MonoBehaviour
         if (!shipFixed)
             return;
         GetComponent<Interactable>().enabled = false;
-        FindObjectOfType<FirstPersonController>().enabled = false;
-        FindObjectOfType<GameManager>().GameComplete();
+        FindObjectOfType<GameManager>().StartGameEndTimeline();
+    }
+
+    public void TurnOffUI()
+    {
+        foreach (GameObject ui in UIs)
+        {
+            ui.SetActive(false);
+        }
     }
 }

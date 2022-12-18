@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Playables;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,7 +14,10 @@ public class GameManager : MonoBehaviour
     public Text zombieCountText;
     public Text timeSpendText;
 
+    public PlayableDirector playableDirector;
+    public GameObject[] ingameUIs;
     float timer;
+    string killCount;
 
     private void Awake()
     {
@@ -38,8 +43,33 @@ public class GameManager : MonoBehaviour
     public void GameComplete()
     {
         gameCompleteUI.SetActive(true);
-        zombieCountText.text = FindObjectOfType<ZombieKilledUI>().GetComponent<Text>().text;
+        zombieCountText.text = killCount;
         timeSpendText.text = timer.ToString();
         Invoke("ReloadScene", 5f);
+    }
+
+    public void StartGameEndTimeline()
+    {
+        killCount = FindObjectOfType<ZombieKilledUI>().GetComponent<Text>().text;
+        Spawner[] spawners = FindObjectsOfType<Spawner>();
+        foreach (Spawner spawner in spawners)
+        {
+            spawner.gameObject.SetActive(false);
+        }
+
+        ZombieController[] zombies = FindObjectsOfType<ZombieController>();
+        foreach (ZombieController zombie in zombies)
+        {
+            Destroy(zombie.gameObject);
+        }
+
+        FindObjectOfType<RaycastInteractor>().gameObject.SetActive(false);
+        foreach (GameObject ui in ingameUIs)
+        {
+            ui.SetActive(false);
+        }
+
+        if (playableDirector.state != PlayState.Playing)
+            playableDirector.Play();
     }
 }
