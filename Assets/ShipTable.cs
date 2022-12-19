@@ -32,6 +32,7 @@ public class ShipTable : MonoBehaviour
 
     public void OnInteraction()
     {
+        inventory = FindObjectOfType<Inventory>();
         if (inventory != null)
         {
             if (inventory.SpendComponent(10))

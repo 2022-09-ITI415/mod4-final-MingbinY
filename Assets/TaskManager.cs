@@ -21,7 +21,12 @@ public class TaskManager : MonoBehaviour
         taskIndex = 0;
         taskText.text = tasks[taskIndex];
         voiceOverManager = FindObjectOfType<PlayerVoiceOverManager>();
-        voiceOverManager.PlayClip();
+    }
+
+    private void Update()
+    {
+        if (voiceOverManager == null)
+            voiceOverManager = FindObjectOfType<PlayerVoiceOverManager>();
     }
 
     public void NextTask()

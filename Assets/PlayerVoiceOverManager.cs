@@ -14,6 +14,11 @@ public class PlayerVoiceOverManager : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
+    private void Start()
+    {
+        PlayClip();
+    }
+
     public void PlayClip()
     {
         AudioClip clip = voiceClips[index];

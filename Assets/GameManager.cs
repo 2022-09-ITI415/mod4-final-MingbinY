@@ -19,9 +19,20 @@ public class GameManager : MonoBehaviour
     float timer;
     string killCount;
 
+    AudioSource audioSource;
+    public AudioClip sceneStartVoiceOver;
+    public GameObject playerObject;
+    public GameObject cutSceneCam;
+    public GameObject playerUI;
+    public GameObject introUI;
+
     private void Awake()
     {
         timer = 0f;
+        audioSource = cutSceneCam.GetComponent<AudioSource>();
+        playerUI.SetActive(false);
+        introUI.SetActive(true);
+        SceneStart();
     }
 
     public void GameOver()
@@ -71,5 +82,21 @@ public class GameManager : MonoBehaviour
 
         if (playableDirector.state != PlayState.Playing)
             playableDirector.Play();
+    }
+
+    public void SceneStart()
+    {
+        cutSceneCam.SetActive(true);
+        StartCoroutine(SceneStartSequence());
+    }
+
+    IEnumerator SceneStartSequence()
+    {
+        audioSource.PlayOneShot(sceneStartVoiceOver);
+        yield return new WaitForSeconds(sceneStartVoiceOver.length);
+        introUI.SetActive(false);
+        playerUI.SetActive(true);
+        playerObject.SetActive(true);
+        cutSceneCam.SetActive(false);
     }
 }

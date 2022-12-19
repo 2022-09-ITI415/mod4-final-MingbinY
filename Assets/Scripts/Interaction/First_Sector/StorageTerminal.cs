@@ -15,10 +15,11 @@ public class StorageTerminal : MonoBehaviour
 
     private void Start()
     {
-        inventory = FindObjectOfType<Inventory>();
+        
     }
     public void OnInteraction()
     {
+        inventory = FindObjectOfType<Inventory>();
         if (inventory != null)
         {
            if (inventory.SpendComponent(3))
