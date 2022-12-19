@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
         audioSource = cutSceneCam.GetComponent<AudioSource>();
         playerUI.SetActive(false);
         introUI.SetActive(true);
-        SceneStart();
+        Invoke("SceneStart", 3f);
     }
 
     public void GameOver()
