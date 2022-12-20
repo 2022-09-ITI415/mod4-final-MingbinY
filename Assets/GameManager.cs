@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
         gameCompleteUI.SetActive(true);
         zombieCountText.text = killCount;
         timeSpendText.text = timer.ToString();
-        Invoke("ReloadScene", 5f);
+        Invoke("ReloadScene", 10f);
     }
 
     public void StartGameEndTimeline()
